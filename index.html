@@ -359,7 +359,7 @@ svg{display:block;max-width:100%}
     <section class="screen active" id="screen-home">
       <div class="ios-install-tip" id="iosInstallTip" hidden>
         <div class="ios-install-seal">蓉</div>
-        <div class="ios-install-copy"><strong>把蓉小顿装到桌面</strong><p id="iosInstallText">点 Safari 底部「分享」→「添加到主屏幕」</p></div>
+        <div class="ios-install-copy"><strong>把蓉小顿装到桌面</strong><p id="iosInstallText">点底部「分享」→「添加到主屏幕」→「添加」</p></div>
         <a class="ios-install-help" href="./install.html">看步骤</a>
         <button class="ios-install-close" id="closeIosInstallTip" type="button" aria-label="关闭安装提示">×</button>
       </div>
@@ -1146,10 +1146,10 @@ if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
   var standalone=window.navigator.standalone===true || (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
   if(!ios || standalone) return;
   var inApp=/MicroMessenger|QQ\//.test(ua);
-  var isSafari=/Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
+  var isSafari=/Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|MQQBrowser|QQBrowser/.test(ua);
   var text=document.getElementById("iosInstallText");
   if(text){
-    text.textContent=inApp ? "先点右上角「···」选择「在 Safari 中打开」，再点分享添加主屏幕" : (!isSafari ? "请用 Safari 打开本页，再点分享按钮添加到主屏幕" : "点 Safari 底部「分享」→「添加到主屏幕」");
+    text.textContent=inApp ? "先点右上角「···」→「在 Safari 中打开」，再点分享→添加到主屏幕" : (!isSafari ? "请改用 Safari 打开，再点底部「分享」→「添加到主屏幕」" : "点 Safari 底部「分享」→「添加到主屏幕」→「添加」");
   }
   tip.hidden=false;
   var close=document.getElementById("closeIosInstallTip");
