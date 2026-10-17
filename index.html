@@ -1137,6 +1137,7 @@ if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
 }
 </script>
 
+<script>
 (function(){
   var tip=document.getElementById("iosInstallTip");
   if(!tip) return;
@@ -1144,7 +1145,7 @@ if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
   var ios=/iPhone|iPad|iPod/.test(ua);
   var standalone=window.navigator.standalone===true || (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
   if(!ios || standalone) return;
-  var inApp=/MicroMessenger|QQ//.test(ua);
+  var inApp=/MicroMessenger|QQ\//.test(ua);
   var isSafari=/Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
   var text=document.getElementById("iosInstallText");
   if(text){
@@ -1154,6 +1155,8 @@ if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
   var close=document.getElementById("closeIosInstallTip");
   if(close) close.addEventListener("click",function(){ tip.hidden=true; });
 })();
+</script>
+
 
 </body>
 </html>
