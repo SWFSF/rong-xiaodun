@@ -1,7 +1,8 @@
-const CACHE_NAME = "rongxiaodun-preview-v1";
+const CACHE_NAME = "rongxiaodun-preview-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
+  "./install.html",
   "./manifest.webmanifest",
   "./icons/apple-touch-icon.png",
   "./icons/icon-192.png",
