@@ -1,4 +1,4 @@
-const CACHE_NAME = "rongxiaodun-preview-v2";
+const CACHE_NAME = "rongxiaodun-preview-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
