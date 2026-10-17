@@ -293,6 +293,7 @@ svg{display:block;max-width:100%}
 .status-dot.unknown{background:#b9a99a}
 .status-unknown{color:#8b7868}
 .sheet-basis p{color:var(--muted);font-size:11px}
+.ios-install-tip{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding:12px 13px;border:1px solid #efcfb8;border-radius:18px;background:linear-gradient(135deg,#fff7e7,#fff0e4);box-shadow:var(--shadow-soft);position:relative}.ios-install-tip[hidden]{display:none}.ios-install-seal{width:36px;height:36px;flex:0 0 36px;border-radius:12px;background:var(--tomato);color:#fff9ed;display:grid;place-items:center;font-size:17px;font-weight:900}.ios-install-copy{min-width:0;flex:1}.ios-install-copy strong{display:block;font-size:11px}.ios-install-copy p{margin:2px 0 0;font-size:9px;line-height:1.45;color:var(--muted)}.ios-install-help{flex:0 0 auto;text-decoration:none;padding:7px 9px;border-radius:9px;background:var(--surface);font-size:9px;font-weight:900;color:var(--tomato-dark)}.ios-install-close{position:absolute;right:5px;top:4px;border:0;background:transparent;color:#b7a596;font-size:16px;line-height:1;padding:3px}.ios-install-tip + .method-banner{margin-top:0}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" href="./icons/icon-192.png">
@@ -356,6 +357,12 @@ svg{display:block;max-width:100%}
     </header>
 
     <section class="screen active" id="screen-home">
+      <div class="ios-install-tip" id="iosInstallTip" hidden>
+        <div class="ios-install-seal">蓉</div>
+        <div class="ios-install-copy"><strong>把蓉小顿装到桌面</strong><p id="iosInstallText">点 Safari 底部「分享」→「添加到主屏幕」</p></div>
+        <a class="ios-install-help" href="./install.html">看步骤</a>
+        <button class="ios-install-close" id="closeIosInstallTip" type="button" aria-label="关闭安装提示">×</button>
+      </div>
       <article class="method-banner" id="methodBanner">
         <div class="method-icon" id="methodIcon">🍱</div>
         <div class="method-copy"><small>今天怎么吃</small><h2 id="methodTitle">正在安排今天的吃法</h2><p id="methodReason">早餐优先食堂，午晚按日期轮换外卖和食堂。</p></div>
@@ -1129,6 +1136,25 @@ if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
   window.addEventListener("load", function(){ navigator.serviceWorker.register("./sw.js").catch(function(){}); });
 }
 </script>
+
+(function(){
+  var tip=document.getElementById("iosInstallTip");
+  if(!tip) return;
+  var ua=navigator.userAgent||"";
+  var ios=/iPhone|iPad|iPod/.test(ua);
+  var standalone=window.navigator.standalone===true || (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
+  if(!ios || standalone) return;
+  var inApp=/MicroMessenger|QQ//.test(ua);
+  var isSafari=/Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
+  var text=document.getElementById("iosInstallText");
+  if(text){
+    text.textContent=inApp ? "先点右上角「···」选择「在 Safari 中打开」，再点分享添加主屏幕" : (!isSafari ? "请用 Safari 打开本页，再点分享按钮添加到主屏幕" : "点 Safari 底部「分享」→「添加到主屏幕」");
+  }
+  tip.hidden=false;
+  var close=document.getElementById("closeIosInstallTip");
+  if(close) close.addEventListener("click",function(){ tip.hidden=true; });
+})();
+
 </body>
 </html>
 
